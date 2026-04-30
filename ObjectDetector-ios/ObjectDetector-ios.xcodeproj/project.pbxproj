@@ -1,0 +1,644 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F5C27A442F9E700500860A21 /* imaged.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5C27A432F9E700500860A21 /* imaged.xcframework */; };
+		F5C27A452F9E700500860A22 /* imaged.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F5C27A432F9E700500860A21 /* imaged.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F54340C62F9E6DB600F57FCF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F54340B02F9E6DB500F57FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F54340B72F9E6DB500F57FCF;
+			remoteInfo = "ObjectDetector-ios";
+		};
+		F54340D02F9E6DB600F57FCF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F54340B02F9E6DB500F57FCF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F54340B72F9E6DB500F57FCF;
+			remoteInfo = "ObjectDetector-ios";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F5C27A462F9E700500860A23 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F5C27A452F9E700500860A22 /* imaged.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F54340B82F9E6DB500F57FCF /* ObjectDetector-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ObjectDetector-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F54340C52F9E6DB600F57FCF /* ObjectDetector-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectDetector-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F54340CF2F9E6DB600F57FCF /* ObjectDetector-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectDetector-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5C27A432F9E700500860A21 /* imaged.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = imaged.xcframework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		F54340BA2F9E6DB500F57FCF /* ObjectDetector-ios */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "ObjectDetector-ios";
+			sourceTree = "<group>";
+		};
+		F54340C82F9E6DB600F57FCF /* ObjectDetector-iosTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "ObjectDetector-iosTests";
+			sourceTree = "<group>";
+		};
+		F54340D22F9E6DB600F57FCF /* ObjectDetector-iosUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "ObjectDetector-iosUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F54340B52F9E6DB500F57FCF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5C27A442F9E700500860A21 /* imaged.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F54340C22F9E6DB600F57FCF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F54340CC2F9E6DB600F57FCF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F54340AF2F9E6DB500F57FCF = {
+			isa = PBXGroup;
+			children = (
+				F54340BA2F9E6DB500F57FCF /* ObjectDetector-ios */,
+				F54340C82F9E6DB600F57FCF /* ObjectDetector-iosTests */,
+				F54340D22F9E6DB600F57FCF /* ObjectDetector-iosUITests */,
+				F54340E22F9E6F2100F57FCF /* Frameworks */,
+				F54340B92F9E6DB500F57FCF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F54340B92F9E6DB500F57FCF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F54340B82F9E6DB500F57FCF /* ObjectDetector-ios.app */,
+				F54340C52F9E6DB600F57FCF /* ObjectDetector-iosTests.xctest */,
+				F54340CF2F9E6DB600F57FCF /* ObjectDetector-iosUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F54340E22F9E6F2100F57FCF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F5C27A432F9E700500860A21 /* imaged.xcframework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F54340B72F9E6DB500F57FCF /* ObjectDetector-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F54340D92F9E6DB600F57FCF /* Build configuration list for PBXNativeTarget "ObjectDetector-ios" */;
+			buildPhases = (
+				F54340B42F9E6DB500F57FCF /* Sources */,
+				F54340B52F9E6DB500F57FCF /* Frameworks */,
+				F54340B62F9E6DB500F57FCF /* Resources */,
+				F5C27A462F9E700500860A23 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F54340BA2F9E6DB500F57FCF /* ObjectDetector-ios */,
+			);
+			name = "ObjectDetector-ios";
+			packageProductDependencies = (
+			);
+			productName = "ObjectDetector-ios";
+			productReference = F54340B82F9E6DB500F57FCF /* ObjectDetector-ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F54340C42F9E6DB600F57FCF /* ObjectDetector-iosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F54340DC2F9E6DB600F57FCF /* Build configuration list for PBXNativeTarget "ObjectDetector-iosTests" */;
+			buildPhases = (
+				F54340C12F9E6DB600F57FCF /* Sources */,
+				F54340C22F9E6DB600F57FCF /* Frameworks */,
+				F54340C32F9E6DB600F57FCF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F54340C72F9E6DB600F57FCF /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F54340C82F9E6DB600F57FCF /* ObjectDetector-iosTests */,
+			);
+			name = "ObjectDetector-iosTests";
+			packageProductDependencies = (
+			);
+			productName = "ObjectDetector-iosTests";
+			productReference = F54340C52F9E6DB600F57FCF /* ObjectDetector-iosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F54340CE2F9E6DB600F57FCF /* ObjectDetector-iosUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F54340DF2F9E6DB600F57FCF /* Build configuration list for PBXNativeTarget "ObjectDetector-iosUITests" */;
+			buildPhases = (
+				F54340CB2F9E6DB600F57FCF /* Sources */,
+				F54340CC2F9E6DB600F57FCF /* Frameworks */,
+				F54340CD2F9E6DB600F57FCF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F54340D12F9E6DB600F57FCF /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F54340D22F9E6DB600F57FCF /* ObjectDetector-iosUITests */,
+			);
+			name = "ObjectDetector-iosUITests";
+			packageProductDependencies = (
+			);
+			productName = "ObjectDetector-iosUITests";
+			productReference = F54340CF2F9E6DB600F57FCF /* ObjectDetector-iosUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F54340B02F9E6DB500F57FCF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2640;
+				LastUpgradeCheck = 2640;
+				TargetAttributes = {
+					F54340B72F9E6DB500F57FCF = {
+						CreatedOnToolsVersion = 26.4.1;
+					};
+					F54340C42F9E6DB600F57FCF = {
+						CreatedOnToolsVersion = 26.4.1;
+						TestTargetID = F54340B72F9E6DB500F57FCF;
+					};
+					F54340CE2F9E6DB600F57FCF = {
+						CreatedOnToolsVersion = 26.4.1;
+						TestTargetID = F54340B72F9E6DB500F57FCF;
+					};
+				};
+			};
+			buildConfigurationList = F54340B32F9E6DB500F57FCF /* Build configuration list for PBXProject "ObjectDetector-ios" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F54340AF2F9E6DB500F57FCF;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = F54340B92F9E6DB500F57FCF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F54340B72F9E6DB500F57FCF /* ObjectDetector-ios */,
+				F54340C42F9E6DB600F57FCF /* ObjectDetector-iosTests */,
+				F54340CE2F9E6DB600F57FCF /* ObjectDetector-iosUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F54340B62F9E6DB500F57FCF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F54340C32F9E6DB600F57FCF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F54340CD2F9E6DB600F57FCF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F54340B42F9E6DB500F57FCF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F54340C12F9E6DB600F57FCF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F54340CB2F9E6DB600F57FCF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F54340C72F9E6DB600F57FCF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F54340B72F9E6DB500F57FCF /* ObjectDetector-ios */;
+			targetProxy = F54340C62F9E6DB600F57FCF /* PBXContainerItemProxy */;
+		};
+		F54340D12F9E6DB600F57FCF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F54340B72F9E6DB500F57FCF /* ObjectDetector-ios */;
+			targetProxy = F54340D02F9E6DB600F57FCF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F54340D72F9E6DB600F57FCF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = YW2A442B88;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F54340D82F9E6DB600F57FCF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = YW2A442B88;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F54340DA2F9E6DB600F57FCF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YW2A442B88;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Used to detect objects in the camera feed.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-framework",
+					CoreML,
+					"-framework",
+					Accelerate,
+					"-framework",
+					Metal,
+					"-framework",
+					MetalPerformanceShaders,
+					"-framework",
+					MetalPerformanceShadersGraph,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.imaged.examples.ObjectDetector-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F54340DB2F9E6DB600F57FCF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YW2A442B88;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Used to detect objects in the camera feed.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-framework",
+					CoreML,
+					"-framework",
+					Accelerate,
+					"-framework",
+					Metal,
+					"-framework",
+					MetalPerformanceShaders,
+					"-framework",
+					MetalPerformanceShadersGraph,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.imaged.examples.ObjectDetector-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F54340DD2F9E6DB600F57FCF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YW2A442B88;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.imaged.examples.ObjectDetector-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ObjectDetector-ios.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ObjectDetector-ios";
+			};
+			name = Debug;
+		};
+		F54340DE2F9E6DB600F57FCF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YW2A442B88;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.imaged.examples.ObjectDetector-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ObjectDetector-ios.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ObjectDetector-ios";
+			};
+			name = Release;
+		};
+		F54340E02F9E6DB600F57FCF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YW2A442B88;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.imaged.examples.ObjectDetector-iosUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "ObjectDetector-ios";
+			};
+			name = Debug;
+		};
+		F54340E12F9E6DB600F57FCF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YW2A442B88;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.imaged.examples.ObjectDetector-iosUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "ObjectDetector-ios";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F54340B32F9E6DB500F57FCF /* Build configuration list for PBXProject "ObjectDetector-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F54340D72F9E6DB600F57FCF /* Debug */,
+				F54340D82F9E6DB600F57FCF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F54340D92F9E6DB600F57FCF /* Build configuration list for PBXNativeTarget "ObjectDetector-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F54340DA2F9E6DB600F57FCF /* Debug */,
+				F54340DB2F9E6DB600F57FCF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F54340DC2F9E6DB600F57FCF /* Build configuration list for PBXNativeTarget "ObjectDetector-iosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F54340DD2F9E6DB600F57FCF /* Debug */,
+				F54340DE2F9E6DB600F57FCF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F54340DF2F9E6DB600F57FCF /* Build configuration list for PBXNativeTarget "ObjectDetector-iosUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F54340E02F9E6DB600F57FCF /* Debug */,
+				F54340E12F9E6DB600F57FCF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F54340B02F9E6DB500F57FCF /* Project object */;
+}

@@ -1,0 +1,49 @@
+# macOS
+.DS_Store
+
+# Editor / IDE
+.idea/
+.vscode/
+.claude/
+*.iml
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Xcode
+build/
+*.xcuserstate
+xcuserdata/
+DerivedData/
+*.moved-aside
+
+# Android / Gradle
+.gradle/
+.kotlin/
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# Models (downloaded by the user — see each example's README)
+*.onnx
+*.gguf
+
+# Native SDK artifacts (downloaded by the user — see each example's README)
+*.dylib
+*.aar
+*.xcframework/
