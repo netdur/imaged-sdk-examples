@@ -113,13 +113,39 @@ class _LocalFileTabState extends State<_LocalFileTab> {
     super.dispose();
   }
 
+  bool _picking = false;
+
+  Future<String?> _pickGguf(String title) async {
+    if (_picking) return null;
+    _picking = true;
+    try {
+      // Android's SAF has no MIME mapping for .gguf, so FileType.custom +
+      // allowedExtensions silently shows no files. Fall back to FileType.any
+      // on Android and validate the extension ourselves.
+      final useAny = Platform.isAndroid;
+      final result = await FilePicker.platform.pickFiles(
+        dialogTitle: title,
+        type: useAny ? FileType.any : FileType.custom,
+        allowedExtensions: useAny ? null : ['gguf'],
+      );
+      final path = result?.files.single.path;
+      if (path == null) return null;
+      if (useAny && p.extension(path).toLowerCase() != '.gguf') {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Please pick a .gguf file.')),
+          );
+        }
+        return null;
+      }
+      return path;
+    } finally {
+      _picking = false;
+    }
+  }
+
   Future<void> _pickModel() async {
-    final result = await FilePicker.platform.pickFiles(
-      dialogTitle: 'Pick a GGUF model',
-      type: FileType.custom,
-      allowedExtensions: ['gguf'],
-    );
-    final path = result?.files.single.path;
+    final path = await _pickGguf('Pick a GGUF model');
     if (path == null) return;
     setState(() {
       _modelPath = path;
@@ -130,12 +156,7 @@ class _LocalFileTabState extends State<_LocalFileTab> {
   }
 
   Future<void> _pickMmproj() async {
-    final result = await FilePicker.platform.pickFiles(
-      dialogTitle: 'Pick an mmproj (optional)',
-      type: FileType.custom,
-      allowedExtensions: ['gguf'],
-    );
-    final path = result?.files.single.path;
+    final path = await _pickGguf('Pick an mmproj (optional)');
     if (path == null) return;
     setState(() => _mmprojPath = path);
   }

@@ -22,10 +22,14 @@ import '../settings/settings_dialog.dart';
 //   flutter run -d macos \
 //     --dart-define=AICHAT_DEV_MODEL=/abs/path/to/model.gguf \
 //     --dart-define=AICHAT_DEV_MMPROJ=/abs/path/to/mmproj.gguf
-const _devMacosModelPath =
-    String.fromEnvironment('AICHAT_DEV_MODEL', defaultValue: '');
-const _devMacosMmprojPath =
-    String.fromEnvironment('AICHAT_DEV_MMPROJ', defaultValue: '');
+const _devMacosModelPath = String.fromEnvironment(
+  'AICHAT_DEV_MODEL',
+  defaultValue: '',
+);
+const _devMacosMmprojPath = String.fromEnvironment(
+  'AICHAT_DEV_MMPROJ',
+  defaultValue: '',
+);
 
 enum _BootState { running, ready, empty, error }
 
@@ -199,32 +203,32 @@ class _HomeScreenState extends State<HomeScreen> {
       switchInCurve: Motion.standard,
       child: switch (_state) {
         _BootState.running => BootScreen(
-            key: const ValueKey('boot'),
-            phase: _phase,
-          ),
+          key: const ValueKey('boot'),
+          phase: _phase,
+        ),
         _BootState.empty => _EmptyShell(
-            key: const ValueKey('empty'),
-            onSettings: _onOpenSettings,
-          ),
+          key: const ValueKey('empty'),
+          onSettings: _onOpenSettings,
+        ),
         _BootState.error => BootScreen(
-            key: const ValueKey('error'),
-            phase: 'something broke',
-            error: _error,
-            onRetry: _onRetryBootstrap,
-          ),
+          key: const ValueKey('error'),
+          phase: 'something broke',
+          error: _error,
+          onRetry: _onRetryBootstrap,
+        ),
         _BootState.ready => _ReadyLayout(
-            key: const ValueKey('ready'),
-            activeId: _conversation?.id,
-            chat: _chat,
-            model: _model!,
-            onSelect: (id) async {
-              final c = await svc.conversations.getById(id);
-              if (c != null) _selectConversation(c);
-            },
-            onNew: _onNewChat,
-            onSearch: _onOpenSearch,
-            onSettings: _onOpenSettings,
-          ),
+          key: const ValueKey('ready'),
+          activeId: _conversation?.id,
+          chat: _chat,
+          model: _model!,
+          onSelect: (id) async {
+            final c = await svc.conversations.getById(id);
+            if (c != null) _selectConversation(c);
+          },
+          onNew: _onNewChat,
+          onSearch: _onOpenSearch,
+          onSettings: _onOpenSettings,
+        ),
       },
     );
   }
@@ -252,24 +256,58 @@ class _ReadyLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        children: [
-          ChatListSidebar(
-            activeConversationId: activeId,
-            activeModel: model,
-            onSelect: onSelect,
-            onNew: onNew,
-            onSearch: onSearch,
-            onSettings: onSettings,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final compact = constraints.maxWidth < 900;
+        final sidebar = ChatListSidebar(
+          activeConversationId: activeId,
+          activeModel: model,
+          onSelect: (id) {
+            if (compact) Navigator.of(context).maybePop();
+            onSelect(id);
+          },
+          onNew: () {
+            if (compact) Navigator.of(context).maybePop();
+            onNew();
+          },
+          onSearch: () {
+            if (compact) Navigator.of(context).maybePop();
+            onSearch();
+          },
+          onSettings: () {
+            if (compact) Navigator.of(context).maybePop();
+            onSettings();
+          },
+        );
+
+        if (compact) {
+          return Scaffold(
+            drawer: Drawer(width: 312, child: SafeArea(child: sidebar)),
+            body: Builder(
+              builder: (context) => chat == null
+                  ? const Center(child: Text('No conversation selected'))
+                  : ChatScreen(
+                      chat: chat!,
+                      model: model,
+                      onOpenSidebar: () => Scaffold.of(context).openDrawer(),
+                    ),
+            ),
+          );
+        }
+
+        return Scaffold(
+          body: Row(
+            children: [
+              sidebar,
+              Expanded(
+                child: chat == null
+                    ? const Center(child: Text('No conversation selected'))
+                    : ChatScreen(chat: chat!, model: model),
+              ),
+            ],
           ),
-          Expanded(
-            child: chat == null
-                ? const Center(child: Text('No conversation selected'))
-                : ChatScreen(chat: chat!, model: model),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -330,12 +368,14 @@ class _EmptyShell extends StatelessWidget {
                           color: scheme.primary.withValues(alpha: 0.3),
                         ),
                       ),
-                      child: Icon(Icons.inventory_2_outlined,
-                          size: 32, color: scheme.primary),
+                      child: Icon(
+                        Icons.inventory_2_outlined,
+                        size: 32,
+                        color: scheme.primary,
+                      ),
                     ),
                     const SizedBox(height: Insets.lg),
-                    Text('No models yet',
-                        style: theme.textTheme.headlineSmall),
+                    Text('No models yet', style: theme.textTheme.headlineSmall),
                     const SizedBox(height: Insets.sm),
                     Text(
                       'Add a GGUF from disk or download from a URL to start chatting.',
@@ -349,9 +389,11 @@ class _EmptyShell extends StatelessWidget {
                       icon: const Icon(Icons.add),
                       label: const Text('Add a model'),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => const ModelsScreen(),
-                        ));
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const ModelsScreen(),
+                          ),
+                        );
                       },
                     ),
                   ],

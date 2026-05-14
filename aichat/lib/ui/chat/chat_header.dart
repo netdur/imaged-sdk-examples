@@ -13,12 +13,14 @@ class ChatHeader extends StatefulWidget {
     required this.model,
     required this.onRename,
     required this.onAdjust,
+    this.onOpenSidebar,
   });
 
   final ChatController chat;
   final ModelBundle model;
   final Future<void> Function(String) onRename;
   final VoidCallback onAdjust;
+  final VoidCallback? onOpenSidebar;
 
   @override
   State<ChatHeader> createState() => _ChatHeaderState();
@@ -26,8 +28,9 @@ class ChatHeader extends StatefulWidget {
 
 class _ChatHeaderState extends State<ChatHeader> {
   Future<void> _renameFlow() async {
-    final controller =
-        TextEditingController(text: widget.chat.conversation.title);
+    final controller = TextEditingController(
+      text: widget.chat.conversation.title,
+    );
     final next = await showDialog<String>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -44,14 +47,14 @@ class _ChatHeaderState extends State<ChatHeader> {
             child: const Text('Cancel'),
           ),
           FilledButton(
-            onPressed: () =>
-                Navigator.of(ctx).pop(controller.text.trim()),
+            onPressed: () => Navigator.of(ctx).pop(controller.text.trim()),
             child: const Text('Save'),
           ),
         ],
       ),
     );
-    if (next != null && next.isNotEmpty &&
+    if (next != null &&
+        next.isNotEmpty &&
         next != widget.chat.conversation.title) {
       await widget.onRename(next);
     }
@@ -63,60 +66,95 @@ class _ChatHeaderState extends State<ChatHeader> {
     final scheme = theme.colorScheme;
     final chat = widget.chat;
     final isGenerating = chat.phase == ChatPhase.generating;
-    return Container(
-      padding: const EdgeInsets.fromLTRB(
-          Insets.lg, Insets.md, Insets.md, Insets.md),
-      decoration: BoxDecoration(
-        color: scheme.surface,
-        border: Border(
-          bottom: BorderSide(
-            color: scheme.outlineVariant.withValues(alpha: 0.4),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final compact = constraints.maxWidth < 640;
+        return Container(
+          padding: EdgeInsets.fromLTRB(
+            widget.onOpenSidebar == null ? Insets.lg : Insets.sm,
+            Insets.sm,
+            Insets.sm,
+            Insets.sm,
           ),
-        ),
-      ),
-      child: Row(
-        children: [
-          _PersonaChip(
-            emoji: chat.persona.emoji ?? '✨',
-            name: chat.persona.name,
-          ),
-          const SizedBox(width: Insets.md),
-          Expanded(
-            child: InkWell(
-              onTap: _renameFlow,
-              borderRadius: BorderRadius.circular(Corners.sm),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: Insets.sm, vertical: Insets.xs),
-                child: Text(
-                  chat.conversation.title,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.titleMedium,
-                ),
+          decoration: BoxDecoration(
+            color: scheme.surface,
+            border: Border(
+              bottom: BorderSide(
+                color: scheme.outlineVariant.withValues(alpha: 0.4),
               ),
             ),
           ),
-          AnimatedSize(
-            duration: motionFor(context, Motion.quick),
-            curve: Motion.standard,
-            alignment: Alignment.centerRight,
-            child: isGenerating
-                ? _StreamingStat(
-                    tokensPerSecond: chat.tokensPerSecond,
-                    tokensGenerated: chat.tokensGenerated,
-                  )
-                : const SizedBox(width: 0, height: 0),
+          child: Row(
+            children: [
+              if (widget.onOpenSidebar != null) ...[
+                IconButton(
+                  icon: const Icon(Icons.menu_rounded),
+                  tooltip: 'Chats',
+                  onPressed: widget.onOpenSidebar,
+                ),
+                const SizedBox(width: Insets.xs),
+              ],
+              if (!compact)
+                _PersonaChip(
+                  emoji: chat.persona.emoji ?? '✨',
+                  name: chat.persona.name,
+                ),
+              if (!compact) const SizedBox(width: Insets.md),
+              Expanded(
+                child: InkWell(
+                  onTap: _renameFlow,
+                  borderRadius: BorderRadius.circular(Corners.sm),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: Insets.sm,
+                      vertical: Insets.xs,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          chat.conversation.title,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.titleMedium,
+                        ),
+                        if (compact)
+                          Text(
+                            chat.persona.name,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              color: scheme.onSurfaceVariant,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              if (!compact)
+                AnimatedSize(
+                  duration: motionFor(context, Motion.quick),
+                  curve: Motion.standard,
+                  alignment: Alignment.centerRight,
+                  child: isGenerating
+                      ? _StreamingStat(
+                          tokensPerSecond: chat.tokensPerSecond,
+                          tokensGenerated: chat.tokensGenerated,
+                        )
+                      : const SizedBox(width: 0, height: 0),
+                ),
+              if (!compact) const SizedBox(width: Insets.sm),
+              if (!compact) _ModelBadge(model: widget.model),
+              const SizedBox(width: Insets.xs),
+              IconButton(
+                icon: const Icon(Icons.tune_rounded, size: 20),
+                tooltip: 'Adjust generation',
+                onPressed: widget.onAdjust,
+              ),
+            ],
           ),
-          const SizedBox(width: Insets.sm),
-          _ModelBadge(model: widget.model),
-          const SizedBox(width: Insets.xs),
-          IconButton(
-            icon: const Icon(Icons.tune_rounded, size: 18),
-            tooltip: 'Adjust generation',
-            onPressed: widget.onAdjust,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -132,13 +170,15 @@ class _PersonaChip extends StatelessWidget {
     final scheme = theme.colorScheme;
     return Container(
       padding: const EdgeInsets.fromLTRB(
-          Insets.xs, Insets.xs, Insets.md, Insets.xs),
+        Insets.xs,
+        Insets.xs,
+        Insets.md,
+        Insets.xs,
+      ),
       decoration: BoxDecoration(
         color: scheme.primaryContainer.withValues(alpha: 0.45),
         borderRadius: BorderRadius.circular(Corners.pill),
-        border: Border.all(
-          color: scheme.primary.withValues(alpha: 0.25),
-        ),
+        border: Border.all(color: scheme.primary.withValues(alpha: 0.25)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -178,7 +218,9 @@ class _ModelBadge extends StatelessWidget {
       message: 'Model: ${model.name} · ctx ${model.nCtx}',
       child: Container(
         padding: const EdgeInsets.symmetric(
-            horizontal: Insets.md, vertical: Insets.xs),
+          horizontal: Insets.md,
+          vertical: Insets.xs,
+        ),
         decoration: BoxDecoration(
           color: scheme.surfaceContainerHigh,
           borderRadius: BorderRadius.circular(Corners.sm),
@@ -186,8 +228,11 @@ class _ModelBadge extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.memory_rounded,
-                size: 14, color: scheme.onSurfaceVariant),
+            Icon(
+              Icons.memory_rounded,
+              size: 14,
+              color: scheme.onSurfaceVariant,
+            ),
             const SizedBox(width: Insets.xs),
             ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 200),
@@ -220,13 +265,13 @@ class _StreamingStat extends StatelessWidget {
     final scheme = theme.colorScheme;
     return Container(
       padding: const EdgeInsets.symmetric(
-          horizontal: Insets.md, vertical: Insets.xs),
+        horizontal: Insets.md,
+        vertical: Insets.xs,
+      ),
       decoration: BoxDecoration(
         color: scheme.tertiaryContainer.withValues(alpha: 0.35),
         borderRadius: BorderRadius.circular(Corners.sm),
-        border: Border.all(
-          color: scheme.tertiary.withValues(alpha: 0.4),
-        ),
+        border: Border.all(color: scheme.tertiary.withValues(alpha: 0.4)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

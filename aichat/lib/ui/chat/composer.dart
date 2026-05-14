@@ -70,10 +70,9 @@ class _ComposerState extends State<Composer> {
     );
     final path = result?.files.single.path;
     if (path == null) return;
-    setState(() => _attachment = ComposerAttachment(
-          path: path,
-          kind: MediaKind.image,
-        ));
+    setState(
+      () => _attachment = ComposerAttachment(path: path, kind: MediaKind.image),
+    );
   }
 
   void _submit() {
@@ -89,13 +88,19 @@ class _ComposerState extends State<Composer> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final canSend = widget.enabled &&
+    final canSend =
+        widget.enabled &&
         (_hasText || _attachment != null) &&
         !widget.generating;
+    final compact = MediaQuery.sizeOf(context).width < 640;
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(
-          Insets.lg, Insets.sm, Insets.lg, Insets.lg),
+      padding: EdgeInsets.fromLTRB(
+        compact ? Insets.sm : Insets.lg,
+        Insets.sm,
+        compact ? Insets.sm : Insets.lg,
+        compact ? Insets.sm : Insets.lg,
+      ),
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -124,7 +129,11 @@ class _ComposerState extends State<Composer> {
                   : null,
             ),
             padding: const EdgeInsets.fromLTRB(
-                Insets.sm, Insets.xs, Insets.sm, Insets.xs),
+              Insets.sm,
+              Insets.xs,
+              Insets.sm,
+              Insets.xs,
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -136,8 +145,7 @@ class _ComposerState extends State<Composer> {
                       ? const SizedBox(width: double.infinity)
                       : _AttachmentPreview(
                           attachment: _attachment!,
-                          onRemove: () =>
-                              setState(() => _attachment = null),
+                          onRemove: () => setState(() => _attachment = null),
                         ),
                 ),
                 Row(
@@ -154,12 +162,14 @@ class _ComposerState extends State<Composer> {
                     Expanded(
                       child: Shortcuts(
                         shortcuts: <LogicalKeySet, Intent>{
-                          LogicalKeySet(LogicalKeyboardKey.meta,
-                                  LogicalKeyboardKey.enter):
-                              const _SubmitIntent(),
-                          LogicalKeySet(LogicalKeyboardKey.control,
-                                  LogicalKeyboardKey.enter):
-                              const _SubmitIntent(),
+                          LogicalKeySet(
+                            LogicalKeyboardKey.meta,
+                            LogicalKeyboardKey.enter,
+                          ): const _SubmitIntent(),
+                          LogicalKeySet(
+                            LogicalKeyboardKey.control,
+                            LogicalKeyboardKey.enter,
+                          ): const _SubmitIntent(),
                         },
                         child: Actions(
                           actions: <Type, Action<Intent>>{
@@ -171,9 +181,9 @@ class _ComposerState extends State<Composer> {
                             ),
                           },
                           child: ConstrainedBox(
-                            constraints: const BoxConstraints(
+                            constraints: BoxConstraints(
                               minHeight: 40,
-                              maxHeight: 320,
+                              maxHeight: compact ? 180 : 320,
                             ),
                             child: TextField(
                               controller: _controller,
@@ -187,12 +197,11 @@ class _ComposerState extends State<Composer> {
                               decoration: InputDecoration(
                                 hintText: widget.generating
                                     ? 'generating…'
-                                    : (widget.placeholder ??
-                                        'Message…'),
-                                hintStyle: theme.textTheme.bodyMedium
-                                    ?.copyWith(
-                                  color: scheme.onSurfaceVariant
-                                      .withValues(alpha: 0.65),
+                                    : (widget.placeholder ?? 'Message…'),
+                                hintStyle: theme.textTheme.bodyMedium?.copyWith(
+                                  color: scheme.onSurfaceVariant.withValues(
+                                    alpha: 0.65,
+                                  ),
                                 ),
                                 filled: false,
                                 border: InputBorder.none,
@@ -200,8 +209,9 @@ class _ComposerState extends State<Composer> {
                                 focusedBorder: InputBorder.none,
                                 isCollapsed: true,
                                 contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: Insets.sm,
-                                    vertical: Insets.md),
+                                  horizontal: Insets.sm,
+                                  vertical: Insets.md,
+                                ),
                               ),
                             ),
                           ),
@@ -220,18 +230,23 @@ class _ComposerState extends State<Composer> {
                 AnimatedSize(
                   duration: motionFor(context, Motion.instant),
                   alignment: Alignment.topCenter,
-                  child: _focused
+                  child: _focused && !compact
                       ? Padding(
                           padding: const EdgeInsets.fromLTRB(
-                              Insets.sm, 0, Insets.sm, Insets.xs),
+                            Insets.sm,
+                            0,
+                            Insets.sm,
+                            Insets.xs,
+                          ),
                           child: Row(
                             children: [
                               const Spacer(),
                               Text(
                                 '⌘⏎ to send',
                                 style: theme.textTheme.labelSmall?.copyWith(
-                                  color: scheme.onSurfaceVariant
-                                      .withValues(alpha: 0.6),
+                                  color: scheme.onSurfaceVariant.withValues(
+                                    alpha: 0.6,
+                                  ),
                                 ),
                               ),
                             ],
@@ -274,15 +289,13 @@ class _PillIconButtonState extends State<_PillIconButton> {
       child: MouseRegion(
         onEnter: (_) => setState(() => _hover = true),
         onExit: (_) => setState(() => _hover = false),
-        cursor: disabled
-            ? SystemMouseCursors.basic
-            : SystemMouseCursors.click,
+        cursor: disabled ? SystemMouseCursors.basic : SystemMouseCursors.click,
         child: GestureDetector(
           onTap: widget.onTap,
           child: AnimatedContainer(
             duration: motionFor(context, Motion.instant),
-            width: 38,
-            height: 38,
+            width: 44,
+            height: 44,
             margin: const EdgeInsets.all(2),
             decoration: BoxDecoration(
               color: _hover && !disabled
@@ -292,7 +305,7 @@ class _PillIconButtonState extends State<_PillIconButton> {
             ),
             child: Icon(
               widget.icon,
-              size: 18,
+              size: 20,
               color: disabled
                   ? scheme.onSurfaceVariant.withValues(alpha: 0.35)
                   : scheme.onSurfaceVariant,
@@ -314,7 +327,11 @@ class _AttachmentPreview extends StatelessWidget {
     final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(
-          Insets.sm, Insets.sm, Insets.sm, Insets.xs),
+        Insets.sm,
+        Insets.sm,
+        Insets.sm,
+        Insets.xs,
+      ),
       child: Row(
         children: [
           Stack(
@@ -323,8 +340,12 @@ class _AttachmentPreview extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(Corners.md),
                 child: attachment.kind == MediaKind.image
-                    ? Image.file(File(attachment.path),
-                        width: 64, height: 64, fit: BoxFit.cover)
+                    ? Image.file(
+                        File(attachment.path),
+                        width: 64,
+                        height: 64,
+                        fit: BoxFit.cover,
+                      )
                     : Container(
                         width: 64,
                         height: 64,
@@ -336,8 +357,9 @@ class _AttachmentPreview extends StatelessWidget {
                 top: -6,
                 right: -6,
                 child: Material(
-                  color: theme.colorScheme.inverseSurface
-                      .withValues(alpha: 0.95),
+                  color: theme.colorScheme.inverseSurface.withValues(
+                    alpha: 0.95,
+                  ),
                   shape: const CircleBorder(),
                   child: InkWell(
                     customBorder: const CircleBorder(),
@@ -403,19 +425,15 @@ class _SendButtonState extends State<_SendButton> {
 
     final Gradient? gradient = widget.generating
         ? null
-        : (widget.enabled
-            ? Brand.gradient
-            : null);
+        : (widget.enabled ? Brand.gradient : null);
     final Color? color = widget.generating
         ? scheme.errorContainer
         : (widget.enabled
-            ? null
-            : scheme.surfaceContainerHighest.withValues(alpha: 0.7));
+              ? null
+              : scheme.surfaceContainerHighest.withValues(alpha: 0.7));
     final Color fg = widget.generating
         ? scheme.onErrorContainer
-        : (widget.enabled
-            ? Colors.white
-            : scheme.onSurfaceVariant);
+        : (widget.enabled ? Colors.white : scheme.onSurfaceVariant);
 
     return MouseRegion(
       onEnter: (_) => setState(() => _hover = true),
@@ -432,8 +450,8 @@ class _SendButtonState extends State<_SendButton> {
           child: AnimatedContainer(
             duration: motionFor(context, Motion.quick),
             curve: Motion.standard,
-            width: 38,
-            height: 38,
+            width: 44,
+            height: 44,
             margin: const EdgeInsets.all(2),
             decoration: BoxDecoration(
               gradient: gradient,
@@ -461,7 +479,7 @@ class _SendButtonState extends State<_SendButton> {
                     : Icons.arrow_upward_rounded,
                 key: ValueKey(widget.generating),
                 color: fg,
-                size: 18,
+                size: 20,
               ),
             ),
           ),

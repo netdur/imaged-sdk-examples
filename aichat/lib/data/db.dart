@@ -26,8 +26,8 @@ class AppDb {
 
     if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
       sqfliteFfiInit();
-      databaseFactory = databaseFactoryFfi;
     }
+    databaseFactory = databaseFactoryFfi;
 
     final docs = await getApplicationDocumentsDirectory();
     final path = p.join(docs.path, 'aichat.db');

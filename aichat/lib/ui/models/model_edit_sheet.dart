@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as p;
 
 import '../../data/models/model_bundle.dart';
 import 'context_params_form.dart';
@@ -51,13 +52,22 @@ class _ModelEditSheetState extends State<_ModelEditSheet> {
   }
 
   Future<void> _pickMmproj() async {
+    final useAny = Platform.isAndroid;
     final result = await FilePicker.platform.pickFiles(
       dialogTitle: 'Pick an mmproj (optional)',
-      type: FileType.custom,
-      allowedExtensions: ['gguf'],
+      type: useAny ? FileType.any : FileType.custom,
+      allowedExtensions: useAny ? null : ['gguf'],
     );
     final path = result?.files.single.path;
     if (path == null) return;
+    if (useAny && p.extension(path).toLowerCase() != '.gguf') {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please pick a .gguf file.')),
+        );
+      }
+      return;
+    }
     setState(() => _mmproj = path);
   }
 

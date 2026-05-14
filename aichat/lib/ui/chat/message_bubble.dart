@@ -43,11 +43,7 @@ class _MessageBubbleState extends State<MessageBubble>
   @override
   void initState() {
     super.initState();
-    _entry = AnimationController(
-      vsync: this,
-      duration: Motion.quick,
-      value: 0,
-    );
+    _entry = AnimationController(vsync: this, duration: Motion.quick, value: 0);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) _entry.forward();
     });
@@ -65,10 +61,9 @@ class _MessageBubbleState extends State<MessageBubble>
     super.dispose();
   }
 
-  String get _displayText =>
-      widget.streaming && widget.streamingText != null
-          ? widget.streamingText!
-          : widget.message.text;
+  String get _displayText => widget.streaming && widget.streamingText != null
+      ? widget.streamingText!
+      : widget.message.text;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +83,8 @@ class _MessageBubbleState extends State<MessageBubble>
   Widget _buildUser(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
+    final width = MediaQuery.sizeOf(context).width;
+    final maxWidth = width < 640 ? width * 0.86 : 720.0;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: Insets.sm),
       child: Row(
@@ -96,7 +93,7 @@ class _MessageBubbleState extends State<MessageBubble>
         children: [
           Flexible(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 720),
+              constraints: BoxConstraints(maxWidth: maxWidth),
               child: MouseRegion(
                 onEnter: (_) => setState(() => _hover = true),
                 onExit: (_) => setState(() => _hover = false),
@@ -104,7 +101,9 @@ class _MessageBubbleState extends State<MessageBubble>
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: Insets.lg, vertical: Insets.md),
+                        horizontal: Insets.lg,
+                        vertical: Insets.md,
+                      ),
                       decoration: BoxDecoration(
                         color: scheme.primaryContainer.withValues(alpha: 0.55),
                         borderRadius: BorderRadius.circular(Corners.lg),
@@ -123,8 +122,7 @@ class _MessageBubbleState extends State<MessageBubble>
                       right: 8,
                       child: AnimatedSlide(
                         duration: motionFor(context, Motion.instant),
-                        offset:
-                            _hover ? Offset.zero : const Offset(0, 0.2),
+                        offset: _hover ? Offset.zero : const Offset(0, 0.2),
                         curve: Motion.standard,
                         child: AnimatedOpacity(
                           duration: motionFor(context, Motion.instant),
@@ -172,7 +170,10 @@ class _MessageBubbleState extends State<MessageBubble>
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 2, bottom: Insets.xs, left: 0),
+                      top: 2,
+                      bottom: Insets.xs,
+                      left: 0,
+                    ),
                     child: Text(
                       widget.persona.name,
                       style: theme.textTheme.labelMedium?.copyWith(
@@ -235,7 +236,8 @@ class _MessageBubbleState extends State<MessageBubble>
         duration: const Duration(milliseconds: 1200),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Corners.md)),
+          borderRadius: BorderRadius.circular(Corners.md),
+        ),
       ),
     );
   }
@@ -270,10 +272,15 @@ class _MessageContent extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: Insets.md),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(Corners.md),
-              child: Image.file(
-                File(message.mediaPath!),
-                width: 360,
-                fit: BoxFit.cover,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxWidth: 360,
+                  maxHeight: 360,
+                ),
+                child: Image.file(
+                  File(message.mediaPath!),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -408,10 +415,7 @@ class _Toolbar extends StatelessWidget {
         ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: children,
-      ),
+      child: Row(mainAxisSize: MainAxisSize.min, children: children),
     );
   }
 }
@@ -447,8 +451,8 @@ class _ToolbarActionState extends State<_ToolbarAction> {
           onTap: widget.onTap,
           child: AnimatedContainer(
             duration: motionFor(context, Motion.instant),
-            width: 28,
-            height: 28,
+            width: 40,
+            height: 40,
             decoration: BoxDecoration(
               color: _hover
                   ? theme.colorScheme.onSurface.withValues(alpha: 0.06)
@@ -457,7 +461,7 @@ class _ToolbarActionState extends State<_ToolbarAction> {
             ),
             child: Icon(
               widget.icon,
-              size: 14,
+              size: 18,
               color: theme.colorScheme.onSurfaceVariant,
             ),
           ),
@@ -497,10 +501,7 @@ class _BlinkingCursorState extends State<_BlinkingCursor>
   Widget build(BuildContext context) {
     return FadeTransition(
       opacity: _ctl.drive(Tween(begin: 0.2, end: 0.95)),
-      child: const Text(
-        '▍',
-        style: TextStyle(height: 1.2, fontSize: 14.5),
-      ),
+      child: const Text('▍', style: TextStyle(height: 1.2, fontSize: 14.5)),
     );
   }
 }
@@ -533,8 +534,9 @@ class _TypingDotsState extends State<_TypingDots>
 
   @override
   Widget build(BuildContext context) {
-    final color =
-        Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.7);
+    final color = Theme.of(
+      context,
+    ).colorScheme.onSurfaceVariant.withValues(alpha: 0.7);
     return SizedBox(
       height: 18,
       child: AnimatedBuilder(

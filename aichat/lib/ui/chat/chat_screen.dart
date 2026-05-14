@@ -15,10 +15,12 @@ class ChatScreen extends StatefulWidget {
     super.key,
     required this.chat,
     required this.model,
+    this.onOpenSidebar,
   });
 
   final ChatController chat;
   final ModelBundle model;
+  final VoidCallback? onOpenSidebar;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -62,8 +64,10 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Future<void> _renameChat(String next) async {
-    await AppServices.instance.conversations
-        .rename(widget.chat.conversation.id, next);
+    await AppServices.instance.conversations.rename(
+      widget.chat.conversation.id,
+      next,
+    );
     if (mounted) setState(() {});
   }
 
@@ -80,11 +84,13 @@ class _ChatScreenState extends State<ChatScreen> {
       fit: StackFit.expand,
       children: [
         const _ChatBackground(),
-        Column(
+        SafeArea(
+          child: Column(
           children: [
             ChatHeader(
               chat: chat,
               model: widget.model,
+              onOpenSidebar: widget.onOpenSidebar,
               onRename: _renameChat,
               onAdjust: () => showSamplerPopover(context, chat: chat),
             ),
@@ -114,7 +120,8 @@ class _ChatScreenState extends State<ChatScreen> {
                         personaName: chat.persona.name,
                         personaEmoji: chat.persona.emoji ?? '✨',
                       )
-                    : Center(
+                    : Align(
+                        alignment: Alignment.topCenter,
                         key: ValueKey('list-${chat.conversation.id}'),
                         child: ConstrainedBox(
                           constraints: const BoxConstraints(maxWidth: 760),
@@ -123,14 +130,18 @@ class _ChatScreenState extends State<ChatScreen> {
                             child: ListView.builder(
                               controller: _scroll,
                               padding: const EdgeInsets.fromLTRB(
-                                  Insets.lg, Insets.lg, Insets.lg, Insets.xl),
+                                Insets.lg,
+                                Insets.lg,
+                                Insets.lg,
+                                Insets.xl,
+                              ),
                               itemCount: messages.length,
                               itemBuilder: (context, i) {
                                 final m = messages[i];
                                 final isLast = m.id == lastAssistantId;
-                                final isStreamingThis =
-                                    isGenerating && isLast;
-                                final waiting = isStreamingThis &&
+                                final isStreamingThis = isGenerating && isLast;
+                                final waiting =
+                                    isStreamingThis &&
                                     chat.tokensGenerated == 0 &&
                                     m.text.isEmpty;
                                 return MessageBubble(
@@ -155,8 +166,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 height: 2,
                 child: LinearProgressIndicator(
                   backgroundColor: Colors.transparent,
-                  valueColor:
-                      AlwaysStoppedAnimation<Color>(scheme.primary),
+                  valueColor: AlwaysStoppedAnimation<Color>(scheme.primary),
                 ),
               ),
             Center(
@@ -176,6 +186,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             ),
           ],
+        ),
         ),
       ],
     );
@@ -199,9 +210,7 @@ class _ChatBackground extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return DecoratedBox(
-      decoration: BoxDecoration(
-        color: scheme.surface,
-      ),
+      decoration: BoxDecoration(color: scheme.surface),
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -322,8 +331,10 @@ class _EmptyChatState extends State<_EmptyChat>
                         color: scheme.primary.withValues(alpha: 0.3),
                       ),
                     ),
-                    child: Text(widget.personaEmoji,
-                        style: const TextStyle(fontSize: 32)),
+                    child: Text(
+                      widget.personaEmoji,
+                      style: const TextStyle(fontSize: 32),
+                    ),
                   ),
                 ),
               ),
@@ -333,8 +344,10 @@ class _EmptyChatState extends State<_EmptyChat>
                   parent: _ctl,
                   curve: const Interval(0.1, 0.6),
                 ),
-                child: Text(widget.personaName,
-                    style: theme.textTheme.headlineSmall),
+                child: Text(
+                  widget.personaName,
+                  style: theme.textTheme.headlineSmall,
+                ),
               ),
               const SizedBox(height: Insets.sm),
               FadeTransition(
@@ -367,17 +380,20 @@ class _EmptyChatState extends State<_EmptyChat>
                         ),
                       ),
                       child: SlideTransition(
-                        position: Tween<Offset>(
-                          begin: const Offset(0, 0.3),
-                          end: Offset.zero,
-                        ).animate(CurvedAnimation(
-                          parent: _ctl,
-                          curve: Interval(
-                            0.25 + i * 0.08,
-                            (0.45 + i * 0.08).clamp(0.0, 1.0),
-                            curve: Motion.standard,
-                          ),
-                        )),
+                        position:
+                            Tween<Offset>(
+                              begin: const Offset(0, 0.3),
+                              end: Offset.zero,
+                            ).animate(
+                              CurvedAnimation(
+                                parent: _ctl,
+                                curve: Interval(
+                                  0.25 + i * 0.08,
+                                  (0.45 + i * 0.08).clamp(0.0, 1.0),
+                                  curve: Motion.standard,
+                                ),
+                              ),
+                            ),
                         child: _StarterChip(label: _starters[i]),
                       ),
                     ),
@@ -414,7 +430,9 @@ class _StarterChipState extends State<_StarterChip> {
         duration: motionFor(context, Motion.instant),
         curve: Motion.standard,
         padding: const EdgeInsets.symmetric(
-            horizontal: Insets.lg, vertical: Insets.md),
+          horizontal: Insets.lg,
+          vertical: Insets.md,
+        ),
         decoration: BoxDecoration(
           color: _hover
               ? scheme.surfaceContainerHigh
@@ -428,9 +446,7 @@ class _StarterChipState extends State<_StarterChip> {
         ),
         child: Text(
           widget.label,
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: scheme.onSurface,
-          ),
+          style: theme.textTheme.bodySmall?.copyWith(color: scheme.onSurface),
         ),
       ),
     );
@@ -450,10 +466,13 @@ class _ErrorBanner extends StatelessWidget {
       curve: Motion.standard,
       child: Container(
         width: double.infinity,
-        margin: const EdgeInsets.fromLTRB(
-            Insets.lg, Insets.md, Insets.lg, 0),
+        margin: const EdgeInsets.fromLTRB(Insets.lg, Insets.md, Insets.lg, 0),
         padding: const EdgeInsets.fromLTRB(
-            Insets.md, Insets.md, Insets.sm, Insets.md),
+          Insets.md,
+          Insets.md,
+          Insets.sm,
+          Insets.md,
+        ),
         decoration: BoxDecoration(
           color: theme.colorScheme.errorContainer.withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(Corners.md),
@@ -463,8 +482,11 @@ class _ErrorBanner extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(Icons.error_outline_rounded,
-                size: 18, color: theme.colorScheme.onErrorContainer),
+            Icon(
+              Icons.error_outline_rounded,
+              size: 18,
+              color: theme.colorScheme.onErrorContainer,
+            ),
             const SizedBox(width: Insets.md),
             Expanded(
               child: Text(
